@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react'
-import {Radio,RadioGroup,FormControlLabel,FormControl,FormHelperText,FormLabel,CardContent,Card,
+import {Radio,RadioGroup,FormControlLabel,FormControl,FormLabel,CardContent,Card,
     makeStyles} from '@material-ui/core'
 
 const useStyles = makeStyles((theme)=>({
     root: {
-        width: '50vw',
+        width: '40vw',
         margin: 'auto',
-        marginBottom:'20px'
+        marginBottom:'20px',
     },
     bullet: {
         display: 'inline-block',
@@ -22,36 +22,36 @@ const useStyles = makeStyles((theme)=>({
     formControl: {
         margin: theme.spacing(3),
     },
-    button: {
-        margin: theme.spacing(1, 1, 0, 0),
-    },
 }));
 
-const SingleTriviaCard=({question})=>{
+const SingleTriviaCard=({question,userAnswer,questionNumber,handleUserInput})=>{
     const classes = useStyles();
 
     const [multipleChoices,setMultipleChoices]=useState([])
     const [questionTitle,setQuestionTitle]=useState('')
 
-    const  dataTransform=(data)=>{
-        const multipleChoicesTemp = [...data.incorrect,data.correct]
+    //TODO  randamzie the choices
+    const  dataTransform=(questionData)=>{
+
+        const multipleChoicesTemp = [...questionData.incorrect,questionData.correct]
         setMultipleChoices(multipleChoicesTemp)
-        setQuestionTitle(data.question)
+        setQuestionTitle(questionData.question)
     }
+
     useEffect(()=>{
     dataTransform(question)
     },[question])
-    //TODO  need a function to listen the onClick
+
+
     return (
         <Card className={classes.root}>
             <CardContent>
                 <FormControl component="fieldset" className={classes.formControl}>
-                        <FormLabel component="legend">{questionTitle}</FormLabel>
+                    <FormLabel component="legend"><span>{questionNumber+1}. </span>{questionTitle}</FormLabel>
                         {/*TODO randomize the answerChoice*/}
-                        <RadioGroup aria-label="quiz" name="quiz" >
-                            {multipleChoices.map((answer)=><FormControlLabel key = {answer} value={answer} control={<Radio />} label={answer}/>)}
+                        <RadioGroup aria-label="quiz" name="quiz" value={userAnswer[questionNumber]}>
+                            {multipleChoices.map((answer)=><FormControlLabel onClick={()=>handleUserInput(answer)} key = {answer} value={answer} control={<Radio />} label={answer}/>)}
                         </RadioGroup>
-                        <FormHelperText>{}</FormHelperText>
                 </FormControl>
             </CardContent>
         </Card>

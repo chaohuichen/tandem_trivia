@@ -1,11 +1,27 @@
 .App {
   text-align: center;
   background-color: darkgray;
+  width: 100%;
+  min-height: 100vh;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.questionSpan{
+  /*background-color:red;*/
+
+  height:25px;
+  width:25px;
+  display: block;
+  margin-top:3px;
+  text-align:center;
+  border-radius:50%;
+  /*border-radius: 5px 5px 5px;*/
+  border: 2px solid #61dafb;
+  margin-right: 10px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
