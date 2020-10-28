@@ -1,21 +1,12 @@
-import {useState} from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
+import {useEffect, useState} from 'react'
+import {Radio,RadioGroup,FormControlLabel,FormControl,FormHelperText,FormLabel,CardContent,Card,
+    makeStyles} from '@material-ui/core'
 
 const useStyles = makeStyles((theme)=>({
     root: {
         width: '50vw',
         margin: 'auto',
+        marginBottom:'20px'
     },
     bullet: {
         display: 'inline-block',
@@ -36,35 +27,32 @@ const useStyles = makeStyles((theme)=>({
     },
 }));
 
-const SingleTriviaCard=()=>{
+const SingleTriviaCard=({question})=>{
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
-    const [state,setState]=useState({
-        "question": "In Shakespeare's play Julius Caesar, Caesar's last words were...",
-        "incorrect": ["Iacta alea est!", "Vidi, vini, vici", "Aegri somnia vana"],
-        "correct": "Et tu, Brute?"
-    })
-    return (
-        <Card className={classes.root} style={{alignSelf:'center'}}>
-            <CardContent>
 
-                <form onSubmit={()=>{}}>
-                    <FormControl component="fieldset" className={classes.formControl}>
-                        <FormLabel component="legend">{state.question}</FormLabel>
+    const [multipleChoices,setMultipleChoices]=useState([])
+    const [questionTitle,setQuestionTitle]=useState('')
+
+    const  dataTransform=(data)=>{
+        const multipleChoicesTemp = [...data.incorrect,data.correct]
+        setMultipleChoices(multipleChoicesTemp)
+        setQuestionTitle(data.question)
+    }
+    useEffect(()=>{
+    dataTransform(question)
+    },[question])
+    //TODO  need a function to listen the onClick
+    return (
+        <Card className={classes.root}>
+            <CardContent>
+                <FormControl component="fieldset" className={classes.formControl}>
+                        <FormLabel component="legend">{questionTitle}</FormLabel>
                         {/*TODO randomize the answerChoice*/}
                         <RadioGroup aria-label="quiz" name="quiz" >
-                            {
-                                state.incorrect.map((incorrectAnswer)=>{
-                                    return(<FormControlLabel key = {incorrectAnswer} value={incorrectAnswer} control={<Radio />} label={incorrectAnswer}/>)
-                                })
-                            }
+                            {multipleChoices.map((answer)=><FormControlLabel key = {answer} value={answer} control={<Radio />} label={answer}/>)}
                         </RadioGroup>
                         <FormHelperText>{}</FormHelperText>
-                        <Button type="submit" variant="outlined" color="primary" className={classes.button}>
-                            Check Answer
-                        </Button>
-                    </FormControl>
-                </form>
+                </FormControl>
             </CardContent>
         </Card>
     );

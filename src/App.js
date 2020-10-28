@@ -1,9 +1,9 @@
 import './App.css';
-import SingleTriviaCard from "./SingleTriviaCard";
+import Trivia from "./Trivia";
 function App() {
   return (
     <div className="App" style={{alignItems:'center'}}>
-      <SingleTriviaCard/>
+      <Trivia/>
     </div>
   );
 }
