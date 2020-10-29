@@ -13,6 +13,7 @@ const getRandomQuestions = (questions) => {
   }
   return questionsList
 };
+// test find for testing getRandomQuestions will return non-repeated array
 const findRepeated = (inputData) => {
   for (let i = 0; i < inputData.length - 1; ++i) {
     const currQuestion = inputData[i].question
@@ -24,6 +25,8 @@ const findRepeated = (inputData) => {
   }
   return false
 };
+
+// Fisher-Yates algorithm for shuffle the array
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
