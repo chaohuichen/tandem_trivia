@@ -23,8 +23,7 @@ Create an application that displays trivia questions with multiple-choice answer
 - [Jest](https://jestjs.io/)
 
 ## Set Up
-
-In the project directory, you can run:
+Clone this repo onto your local machine, then in the project directory, you can run:
 
 ### `npm run start` or `yarn start`
 
