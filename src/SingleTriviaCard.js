@@ -49,7 +49,7 @@ const SingleTriviaCard = ({
   };
 
   useEffect(() => {
-    if (!isSubmited && question !== undefined) {
+    if (question !== undefined) {
       dataTransform(question)
     }
   }, [question])
